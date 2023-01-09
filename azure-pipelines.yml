@@ -30,7 +30,5 @@ steps:
       **/*jar-with-dependencies.jar
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: true  
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: artifact
+- publish: '$(Build.ArtifactStagingDirectory)'
+  artifact: app
