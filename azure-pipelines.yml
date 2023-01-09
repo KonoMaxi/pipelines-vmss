@@ -21,12 +21,16 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 - task: CopyFiles@2
-  displayName: 'Copy File to: $(TargetFolder)'
+  displayName: Copy File to stating directory
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       **/*.sh 
       **/*.war
       **/*jar-with-dependencies.jar
-    TargetFolder: '$(System.DefaultWorkingDirectory)/pipeline-artifacts/'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: true  
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: artifact
